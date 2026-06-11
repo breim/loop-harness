@@ -1,4 +1,5 @@
 <div align="center">
+<img width="2442" height="1292" alt="loop-harness" src="https://github.com/user-attachments/assets/b9269880-3265-4a5e-b304-38e7e7ea469d" />
 
 # loop-harness
 
