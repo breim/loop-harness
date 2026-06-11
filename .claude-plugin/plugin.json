@@ -6,5 +6,6 @@
     "name": "Henrique Breim",
     "email": "henrique@breim.com.br"
   },
-  "homepage": "https://github.com/breim/loop-harness"
+  "homepage": "https://github.com/breim/loop-harness",
+  "license": "MIT"
 }
