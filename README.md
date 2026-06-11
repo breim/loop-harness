@@ -46,14 +46,22 @@ flowchart LR
 
 ## Installation
 
-Requires [Claude Code](https://code.claude.com/docs/en/skills). Install as a plugin — no clone needed:
+Install with [skills](https://github.com/vercel-labs/skills), no clone needed:
+
+```sh
+npx skills add breim/loop-harness
+```
+
+This installs all four skills with their bare names (`/loop-check`, `/loop-init`, `/loop-review`). Add `-g` for a global (user-level) install, and update later with `npx skills update`. Works with Claude Code, Codex, Cursor, and every other agent the skills CLI supports.
+
+### Alternative: Claude Code plugin
 
 ```
 /plugin marketplace add breim/loop-harness
 /plugin install loop-harness@loop-harness
 ```
 
-Skills become available as `/loop-harness:loop-check`, `/loop-harness:loop-init`, etc. Update later with `/plugin marketplace update loop-harness`.
+The plugin form namespaces the commands (`/loop-harness:loop-check`) and also installs the `loop-verifier` agent. Update with `/plugin marketplace update loop-harness`.
 
 ### Development install
 
@@ -63,7 +71,7 @@ To hack on the skills themselves, clone this repository and run the installer:
 ./install.sh
 ```
 
-It symlinks the skills and the agent into `~/.claude/`, keeping this repository as the source of truth so edits propagate without reinstalling. Idempotent — re-run it anytime, from any directory. Open a new Claude Code session and type `/loop-check` to confirm the skills loaded.
+It symlinks the skills and the agent into `~/.claude/`, keeping this repository as the source of truth so edits propagate without reinstalling. Idempotent: re-run it anytime, from any directory. Open a new Claude Code session and type `/loop-check` to confirm the skills loaded.
 
 > [!NOTE]
 > Scaffolding writes into the target project's `.claude/` directory, which Claude Code protects with an approval prompt. That one click is intentional: creating a new loop should pass through a human.
