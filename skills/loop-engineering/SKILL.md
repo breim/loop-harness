@@ -13,26 +13,22 @@ Use a loop for repetitive, machine-checkable work: CI failure triage, dependency
 
 Do not loop on judgment-call work: architecture rewrites, auth or payments code, production deploys, vague product decisions. For one-off tasks, a single well-aimed prompt wins.
 
-## The 4-condition test
+## The 2-condition test
 
-Build a loop only if all four hold. Miss one and the loop costs more than it returns.
+Build a loop only if both hold. Miss one and the loop costs more than it returns.
 
 | Condition | Why |
 |---|---|
-| The task repeats at least weekly | Setup cost must amortize across runs |
 | Verification is automated (test/build/lint/typecheck rejects bad output) | Otherwise a human reads every diff — the job the loop was meant to remove |
 | The token budget absorbs waste | Loops re-read context, retry, explore; that burns tokens regardless of output |
-| The agent has senior-engineer tools (run the code, see logs, reproduce) | Otherwise the loop iterates blind |
 
 ## The 30-second checklist
 
-Before turning a specific task into a loop, all five boxes must check:
+Before turning a specific task into a loop, all three boxes must check:
 
-1. Happens at least weekly
-2. An objective gate can reject bad output
-3. The agent can run the code it changes
-4. The loop has a hard stop (token budget, iteration count, or time limit)
-5. A human approves before merge, deploy, or dependency changes
+1. An objective gate can reject bad output
+2. The loop has a hard stop (token budget, iteration count, or time limit)
+3. A human approves before merge, deploy, or dependency changes
 
 ## The 5 building blocks
 

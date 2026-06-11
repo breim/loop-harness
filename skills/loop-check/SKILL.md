@@ -1,6 +1,6 @@
 ---
 name: loop-check
-description: Run the 4-condition test and 30-second checklist for a candidate loop
+description: Run the 2-condition test and checklist for a candidate loop
 argument-hint: "[task description]"
 ---
 
@@ -14,20 +14,16 @@ Walk through the evaluation one condition at a time. Ask the user when you canno
 
 If the task involves architecture rewrites, authentication, payments/billing, production deploys, or work where "done" is a judgment call: stop and output **NO-GO** immediately, naming the blocked category. These need a human in the chair regardless of the other conditions.
 
-## Step 2 — the 4-condition test
+## Step 2 — the 2-condition test
 
-1. **Repeats at least weekly?** Less than weekly means setup cost never amortizes.
-2. **Automated verification exists?** Look for a test suite, build, linter, or type checker in the project that would reject bad output with a non-zero exit code. Name the exact command if you find one.
-3. **Token budget absorbs waste?** Loops re-read context and retry; ask the user if their plan/budget tolerates 5-10x the tokens of a single run.
-4. **Senior-engineer tooling?** The agent must be able to run the code it changes and see logs/failures locally.
+1. **Automated verification exists?** Look for a test suite, build, linter, or type checker in the project that would reject bad output with a non-zero exit code. Name the exact command if you find one.
+2. **Token budget absorbs waste?** Loops re-read context and retry; ask the user if their plan/budget tolerates 5-10x the tokens of a single run.
 
 ## Step 3 — the 30-second checklist
 
 Confirm each box:
 
-- [ ] Happens at least weekly
 - [ ] Objective gate can reject bad output (name the command)
-- [ ] Agent can run the code it changes
 - [ ] A hard stop is feasible (token budget, iteration count, or time limit)
 - [ ] Human approval will gate merge, deploy, and dependency changes
 

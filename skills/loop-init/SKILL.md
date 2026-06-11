@@ -8,7 +8,7 @@ Scaffold a new agent loop in the current project. Loop name argument: $ARGUMENTS
 
 ## Step 1 — qualify
 
-If the 4-condition test (`/loop-check`) was not run for this task in the current session, run its evaluation inline now. On NO-GO, abort and explain which condition failed — do not scaffold a loop that fails the test.
+If the 2-condition test (`/loop-check`) was not run for this task in the current session, run its evaluation inline now. On NO-GO, abort and explain which condition failed — do not scaffold a loop that fails the test.
 
 ## Step 2 — gather inputs
 

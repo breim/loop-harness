@@ -27,7 +27,7 @@ flowchart LR
 
 ## Features
 
-- **Qualification gate.** The 4-condition test and 30-second checklist decide go/no-go before any loop exists.
+- **Qualification gate.** The 2-condition test and checklist decide go/no-go before any loop exists.
 - **One-command scaffolding.** `/loop-init` generates the loop's skill, state file, and standing spec into any project.
 - **State that survives sessions.** `STATE.md` (working memory) plus `VISION.md` (a contract reread every run) prevent restarts and goal drift.
 - **Maker/checker split.** The `loop-verifier` agent reruns the gate itself and judges scope independently. The agent that wrote the code never grades it.
@@ -128,14 +128,12 @@ Every loop is one self-contained directory with three files:
 
 ## Methodology
 
-Build a loop only if **all four** conditions hold:
+Build a loop only if **both** conditions hold:
 
 | Condition | Why |
 |---|---|
-| Task repeats at least weekly | Setup cost must amortize across runs |
 | Verification is automated | Otherwise a human reads every diff, the exact job the loop was meant to remove |
 | Token budget absorbs waste | Loops re-read context, retry, and explore: expect 5 to 10 times the cost of a single run |
-| Agent has senior-engineer tools | It must run the code it changes and see the failures |
 
 The metric that matters is **cost per accepted change**, not tokens spent or tasks attempted. If acceptance drops below 50%, the loop is losing: kill it and redesign.
 
