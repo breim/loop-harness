@@ -45,18 +45,24 @@ flowchart LR
 
 ## Installation
 
-Requires [Claude Code](https://code.claude.com/docs/en/skills). Clone this repository, then symlink the skills and the agent into your user directory:
+Requires [Claude Code](https://code.claude.com/docs/en/skills). Install as a plugin — no clone needed:
 
-```sh
-ln -s "$(pwd)/skills/loop-check"       ~/.claude/skills/loop-check
-ln -s "$(pwd)/skills/loop-init"        ~/.claude/skills/loop-init
-ln -s "$(pwd)/skills/loop-review"      ~/.claude/skills/loop-review
-ln -s "$(pwd)/skills/loop-engineering" ~/.claude/skills/loop-engineering
-mkdir -p ~/.claude/agents
-ln -s "$(pwd)/agents/loop-verifier.md" ~/.claude/agents/loop-verifier.md
+```
+/plugin marketplace add breim/loop-harness
+/plugin install loop-harness@loop-harness
 ```
 
-Symlinks keep this repository as the source of truth, so edits propagate without reinstalling. Open a new Claude Code session and type `/loop-check` to confirm the skills loaded.
+Skills become available as `/loop-harness:loop-check`, `/loop-harness:loop-init`, etc. Update later with `/plugin marketplace update loop-harness`.
+
+### Development install
+
+To hack on the skills themselves, clone this repository and run the installer:
+
+```sh
+./install.sh
+```
+
+It symlinks the skills and the agent into `~/.claude/`, keeping this repository as the source of truth so edits propagate without reinstalling. Idempotent — re-run it anytime, from any directory. Open a new Claude Code session and type `/loop-check` to confirm the skills loaded.
 
 > [!NOTE]
 > Scaffolding writes into the target project's `.claude/` directory, which Claude Code protects with an approval prompt. That one click is intentional: creating a new loop should pass through a human.
