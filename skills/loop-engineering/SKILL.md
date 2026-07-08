@@ -40,7 +40,7 @@ Before turning a specific task into a loop, all three boxes must check:
 
 ## State pattern
 
-- **STATE.md** — working memory across runs: last run, in progress, completed, escalated, lessons learned, stop conditions met. The agent forgets; the file does not.
+- **STATE.md** — working memory across runs: last run, metrics tally, in progress, completed, escalated, lessons learned, stop conditions met. The agent forgets; the file does not.
 - **VISION.md** — standing spec reread at the start of every run: goal, scope, gate, hard stops, approval boundaries. Prevents goal drift as context gets summarized away.
 
 ## Minimum viable loop

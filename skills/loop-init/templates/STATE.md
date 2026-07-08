@@ -6,6 +6,12 @@
 
 (none yet)
 
+## Metrics
+
+<!-- Runs is incremented by the loop; Accepted/Rejected by /loop-review. Below 50% acceptance, kill the loop. -->
+
+Runs: 0 · Accepted: 0 · Rejected: 0
+
 ## In progress
 
 (none)

@@ -37,7 +37,7 @@ Replace every placeholder (`<LOOP_NAME>`, `<PURPOSE>`, `<CADENCE>`, `<GATE_COMMA
 Tell the user, in this order (order matters — skipping ahead is how loops fail):
 
 1. **Run manually first**: invoke the `<loop-name>` skill in a normal session and supervise it until a full run is reliable. Refine classification rules and fix patterns in its SKILL.md as you learn.
-2. **Then loop it**: wrap it with `/loop` (or the ralph-loop plugin) using the cadence and the gate as the stop condition.
+2. **Then loop it**: wrap it with `/loop` (or the ralph-loop plugin) at the chosen cadence, stopping when a run ends with `LOOP DONE`.
 3. **Then schedule it**: only after looped runs are boring, move to a scheduled task or cron.
-4. **Review STATE.md after every batch** and read the diffs the loop ships. Track cost per accepted change; if acceptance drops below 50%, kill the loop and redesign.
-5. Use `/loop-review <loop-name>` to check the loop's output — never let the maker grade its own work.
+
+At every stage, end each batch with `/loop-review <loop-name>` before trusting the results — the maker never grades its own work. Review keeps the accept/reject tally in STATE.md; if acceptance drops below 50%, kill the loop and redesign.
