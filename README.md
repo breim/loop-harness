@@ -17,12 +17,10 @@ loop-harness packages the discipline as four Claude Code skills and one agent. I
 flowchart LR
     A["/loop-check"] -->|NO-GO| B["stay with manual prompts"]
     A -->|GO| C["/loop-init"]
-    C --> D["manual runs until reliable"]
-    D --> E["wrap in /loop"]
-    E --> F["schedule it"]
-    F --> G["/loop-review"]
-    G -->|ACCEPT| H["ship"]
-    G -->|REJECT| D
+    C --> D["manual runs → wrap in /loop → schedule"]
+    D --> E["/loop-review every batch"]
+    E -->|ACCEPT| F["ship"]
+    E -->|REJECT| D
 ```
 
 ## Features
@@ -52,7 +50,7 @@ Install with [skills](https://github.com/vercel-labs/skills), no clone needed:
 npx skills add breim/loop-harness
 ```
 
-This installs all four skills with their bare names (`/loop-check`, `/loop-init`, `/loop-review`). Add `-g` for a global (user-level) install, and update later with `npx skills update`. Works with Claude Code, Codex, Cursor, and every other agent the skills CLI supports.
+This installs all four skills with bare names: three slash commands (`/loop-check`, `/loop-init`, `/loop-review`) plus `loop-engineering`, which auto-triggers rather than being invoked. It does not install the `loop-verifier` agent, so `/loop-review` falls back to a general-purpose subagent with equivalent instructions — use the plugin install below if you want the dedicated agent. Add `-g` for a global (user-level) install, and update later with `npx skills update`. Works with Claude Code, Codex, Cursor, and every other agent the skills CLI supports.
 
 ### Alternative: Claude Code plugin
 
@@ -113,18 +111,20 @@ REJECT:
 2. Diff touches package.json: dependency changes require human approval.
 ```
 
-Fixes go back through the loop and a fresh `/loop-review`. The maker never self-approves.
+Fixes go back through the loop and a fresh `/loop-review`. The maker never self-approves. Each verdict updates the accept/reject tally in the loop's STATE.md — the input to the 50% kill switch.
 
 ## Anatomy of a scaffolded loop
 
 Every loop is one self-contained directory with three files:
 
-- **`SKILL.md`** holds the procedure (read vision, read state, do one unit of work, run the gate, update state), project-specific classification rules and fix patterns, and prefilled "never do" rules: never weaken the gate, never touch auth/payments/architecture, never merge without human approval, never edit `VISION.md`.
-- **`STATE.md`** is the working memory. The agent forgets; the file does not. Last run, in progress, completed, escalated to humans, dated lessons learned.
+- **`SKILL.md`** holds the procedure (read vision, read state, stop if done, do one unit of work, run the gate, update state), project-specific classification rules and fix patterns, and prefilled "never do" rules: never weaken the gate, never touch auth/payments/architecture, never merge without human approval, never edit `VISION.md`.
+- **`STATE.md`** is the working memory. The agent forgets; the file does not. Last run, run/accept/reject tally, in progress, completed, escalated to humans, dated lessons learned, and the stop condition that ends the loop.
 - **`VISION.md`** is the standing spec reread at the start of every run: goal, scope, exact gate command, hard stops, human-approval boundaries. Context summarization loses constraints over long sessions; this file is the antidote.
 
+When the goal is met or no in-scope work remains, a run records the reason under "Stop conditions met" and ends with the line `LOOP DONE: <reason>` — the signal a `/loop` wrapper or scheduler watches for to stop re-invoking. The verifier confirms the claim; a self-declared done is never trusted.
+
 > [!IMPORTANT]
-> Rollout order matters: get one **manual** run reliable, then turn it into a **skill**, then wrap it in a **loop**, and only then **schedule** it. Skipping ahead is how loops fail in production.
+> Rollout order matters: get one **manual** run reliable, then turn it into a **skill**, then wrap it in a **loop**, and only then **schedule** it. At every stage, `/loop-review` ends each batch. Skipping ahead is how loops fail in production.
 
 ## Methodology
 
