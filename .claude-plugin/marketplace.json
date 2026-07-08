@@ -3,7 +3,7 @@
   "description": "Loop engineering harness for Claude Code. Stop prompting by hand: design the system that prompts.",
   "owner": {
     "name": "Henrique Breim",
-    "email": "henrique@breim.com.br"
+    "email": "hbreim@gmail.com"
   },
   "plugins": [
     {
