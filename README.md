@@ -99,7 +99,7 @@ Asks for purpose, cadence, gate command, hard stop, and scope, then writes:
 └── VISION.md    the contract: goal, scope, gate, hard stops
 ```
 
-It then prints the rollout order, and the order is the point (see below).
+It then prints the rollout order, and the order is the point (see below). The filled-in result of this exact loop, a few runs later, is in [`examples/ci-triage`](examples/ci-triage).
 
 ### `/loop-review <loop-name>`: verify the output
 
@@ -145,7 +145,7 @@ Build a loop only if **both** conditions hold:
 The metric that matters is **cost per accepted change**, not tokens spent or tasks attempted. If acceptance drops below 50%, the loop is losing: kill it and redesign.
 
 > [!WARNING]
-> The signature failure mode is the *Ralph Wiggum loop*: the agent declares "done" early and the loop exits on a half-finished job, or keeps spending until something external kills it. The only fix is an objective gate (an exit code), never a second agent's opinion.
+> The signature failure mode is the *Ralph Wiggum loop*: the agent declares "done" early and the loop exits on a half-finished job, or keeps spending until something external kills it. The only fix is an objective gate (an exit code), backed by independent review — never the maker's own opinion.
 
 > [!CAUTION]
 > Never let a loop touch architecture, auth, or payments. Keep humans in the approval path for merges, deploys, and dependency changes. Audit skill sources before installing, sanitize logs in unattended runs, and re-audit the loop's permissions every 30 days.
