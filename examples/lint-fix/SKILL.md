@@ -1,6 +1,6 @@
 ---
 name: lint-fix
-description: Worked example from loop-harness — for reading, not installing. Use only when executing the lint-fix loop. Migrate src/ to the strict ESLint config one directory per run until zero warnings remain.
+description: Worked example from loop-harness (for reading, not installing). Use only when executing the lint-fix loop. Migrate src/ to the strict ESLint config one directory per run until zero warnings remain.
 ---
 
 # lint-fix loop
@@ -9,7 +9,7 @@ Cadence: every 30 minutes in-session, via /loop
 
 ## Procedure
 
-1. Read VISION.md in this directory. It is the contract — do not act outside it.
+1. Read VISION.md in this directory. It is the contract; do not act outside it.
 2. Read STATE.md in this directory. Resume from "In progress"; do not redo "Completed" items.
 3. Check whether the loop is done: if "Stop conditions met" in STATE.md is already filled, the VISION.md goal now holds, or no in-scope work remains, record the reason under "Stop conditions met", end your output with the line `LOOP DONE: <reason>`, and stop without doing work.
 4. Do one unit of work within scope.
@@ -45,6 +45,6 @@ After each run, update STATE.md:
 - **Metrics**: increment the Runs count. Accepted/Rejected belong to `/loop-review`, never to you
 - **In progress**: items started but not gated yet, with branch names
 - **Completed**: items that passed the gate this run
-- **Escalated to humans**: items that hit a never-do boundary, an out-of-scope need, or 3 gate failures — with the reason
+- **Escalated to humans**: items that hit a never-do boundary, an out-of-scope need, or 3 gate failures, with the reason
 - **Lessons learned**: any durable fact discovered (environment quirk, flaky test, misleading error), dated
-- **Stop conditions met**: the reason and date when the loop is done — goal met, no in-scope work left, or a VISION.md hard stop. Filling this ends the loop (step 3)
+- **Stop conditions met**: the reason and date when the loop is done (goal met, no in-scope work left, or a VISION.md hard stop). Filling this ends the loop (step 3)

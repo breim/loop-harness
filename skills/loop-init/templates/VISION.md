@@ -27,7 +27,7 @@ The gate passes and the change is within scope. Nothing else counts as done.
 <GATE_COMMAND>
 ```
 
-Pass criteria: exit code 0. The loop must run this command itself and see it pass — a claim of success without a run is a failure.
+Pass criteria: exit code 0. The loop must run this command itself and see it pass; a claim of success without a run is a failure.
 
 ## Hard stops
 

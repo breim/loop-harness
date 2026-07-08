@@ -4,7 +4,7 @@
 
 ## Goal
 
-Every failing run on main's nightly CI is triaged into flake, environment, or bug — with a drafted fix branch for each deterministic bug.
+Every failing run on main's nightly CI is triaged into flake, environment, or bug, with a drafted fix branch for each deterministic bug.
 
 ## Scope
 
@@ -30,7 +30,7 @@ The gate passes and the change is within scope. Nothing else counts as done.
 npm test
 ```
 
-Pass criteria: exit code 0. The loop must run this command itself and see it pass — a claim of success without a run is a failure.
+Pass criteria: exit code 0. The loop must run this command itself and see it pass; a claim of success without a run is a failure.
 
 ## Hard stops
 

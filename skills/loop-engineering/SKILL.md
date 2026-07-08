@@ -1,11 +1,11 @@
 ---
 name: loop-engineering
-description: Loop engineering methodology — use when designing, reviewing, or debugging automated agent loops (systems that prompt the agent on a schedule instead of by hand)
+description: Loop engineering methodology: use when designing, reviewing, or debugging automated agent loops (systems that prompt the agent on a schedule instead of by hand)
 ---
 
 # Loop engineering
 
-A loop is a small system that finds work, hands it to an agent, checks the result with an objective gate, records what happened, and decides the next move — without a human prompting each step.
+A loop is a small system that finds work, hands it to an agent, checks the result with an objective gate, records what happened, and decides the next move, without a human prompting each step.
 
 ## When to use, when not to
 
@@ -19,7 +19,7 @@ Build a loop only if both hold. Miss one and the loop costs more than it returns
 
 | Condition | Why |
 |---|---|
-| Verification is automated (test/build/lint/typecheck rejects bad output) | Otherwise a human reads every diff — the job the loop was meant to remove |
+| Verification is automated (test/build/lint/typecheck rejects bad output) | Otherwise a human reads every diff, the job the loop was meant to remove |
 | The token budget absorbs waste | Loops re-read context, retry, explore; that burns tokens regardless of output |
 
 ## The 30-second checklist
@@ -32,16 +32,16 @@ Before turning a specific task into a loop, all three boxes must check:
 
 ## The 5 building blocks
 
-1. **Automation** — the heartbeat. `/loop` for session cadence, scheduled tasks or cron for unattended runs. Pair with a goal condition checked by a model that did not write the code.
-2. **Worktrees** — parallel agents each get their own git worktree so edits cannot collide. Your review bandwidth, not the tool, is the ceiling on parallelism.
-3. **Skills** — project knowledge written once, read every run. Without one, the loop re-derives context from zero each cycle.
-4. **Connectors (MCP)** — the loop acts in real tools: GitHub first, then issue tracker, Slack, error tracker.
-5. **Maker/checker sub-agents** — the agent that wrote the code never grades it. A separate verifier with no exposure to the maker's reasoning issues ACCEPT or REJECT.
+1. **Automation**: the heartbeat. `/loop` for session cadence, scheduled tasks or cron for unattended runs. Pair with a goal condition checked by a model that did not write the code.
+2. **Worktrees**: parallel agents each get their own git worktree so edits cannot collide. Your review bandwidth, not the tool, is the ceiling on parallelism.
+3. **Skills**: project knowledge written once, read every run. Without one, the loop re-derives context from zero each cycle.
+4. **Connectors (MCP)**: the loop acts in real tools: GitHub first, then issue tracker, Slack, error tracker.
+5. **Maker/checker sub-agents**: the agent that wrote the code never grades it. A separate verifier with no exposure to the maker's reasoning issues ACCEPT or REJECT.
 
 ## State pattern
 
-- **STATE.md** — working memory across runs: last run, metrics tally, in progress, completed, escalated, lessons learned, stop conditions met. The agent forgets; the file does not.
-- **VISION.md** — standing spec reread at the start of every run: goal, scope, gate, hard stops, approval boundaries. Prevents goal drift as context gets summarized away.
+- **STATE.md**: working memory across runs: last run, metrics tally, in progress, completed, escalated, lessons learned, stop conditions met. The agent forgets; the file does not.
+- **VISION.md**: standing spec reread at the start of every run: goal, scope, gate, hard stops, approval boundaries. Prevents goal drift as context gets summarized away.
 
 ## Minimum viable loop
 
@@ -56,17 +56,17 @@ Skipping ahead is how loops fail in production.
 
 ## Failure modes
 
-- **Ralph Wiggum loop** — the agent emits "done" early and the loop exits on a half-finished job. Fix: an objective gate (exit code), never a second agent's opinion.
-- **Goal drift** — constraints disappear after summarization. Fix: reread VISION.md every run.
-- **Self-preferential bias** — the maker grades its own homework as A+. Fix: the `loop-verifier` agent.
-- **Agentic laziness** — "done enough" at partial completion. Fix: goal condition checked by a fresh model.
+- **Ralph Wiggum loop**: the agent emits "done" early and the loop exits on a half-finished job. Fix: an objective gate (exit code), never a second agent's opinion.
+- **Goal drift**: constraints disappear after summarization. Fix: reread VISION.md every run.
+- **Self-preferential bias**: the maker grades its own homework as A+. Fix: the `loop-verifier` agent.
+- **Agentic laziness**: "done enough" at partial completion. Fix: goal condition checked by a fresh model.
 
-The metric is **cost per accepted change**, not tokens spent or tasks attempted. If acceptance drops below 50%, the loop is losing — kill it and redesign.
+The metric is **cost per accepted change**, not tokens spent or tasks attempted. If acceptance drops below 50%, the loop is losing: kill it and redesign.
 
 ## Security checklist
 
 - Generated code never merges without human review plus security checks in the gate
-- Audit skill sources before installing — descriptions are injection vectors
+- Audit skill sources before installing: descriptions are injection vectors
 - Sanitize logs; disable verbose logging in unattended loops
 - Re-audit the loop's permissions every 30 days
 - Never let a loop touch architecture, auth, or payments

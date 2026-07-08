@@ -50,7 +50,7 @@ Install with [skills](https://github.com/vercel-labs/skills), no clone needed:
 npx skills add breim/loop-harness
 ```
 
-This installs all four skills with bare names: three slash commands (`/loop-check`, `/loop-init`, `/loop-review`) plus `loop-engineering`, which auto-triggers rather than being invoked. It does not install the `loop-verifier` agent, so `/loop-review` falls back to a general-purpose subagent with equivalent instructions — use the plugin install below if you want the dedicated agent. Add `-g` for a global (user-level) install, and update later with `npx skills update`. Works with Claude Code, Codex, Cursor, and every other agent the skills CLI supports.
+This installs all four skills with bare names: three slash commands (`/loop-check`, `/loop-init`, `/loop-review`) plus `loop-engineering`, which auto-triggers rather than being invoked. It does not install the `loop-verifier` agent, so `/loop-review` falls back to a general-purpose subagent with equivalent instructions. Use the plugin install below if you want the dedicated agent. Add `-g` for a global (user-level) install, and update later with `npx skills update`. Works with Claude Code, Codex, Cursor, and every other agent the skills CLI supports.
 
 ### Alternative: Claude Code plugin
 
@@ -111,7 +111,7 @@ REJECT:
 2. Diff touches package.json: dependency changes require human approval.
 ```
 
-Fixes go back through the loop and a fresh `/loop-review`. The maker never self-approves. Each verdict updates the accept/reject tally in the loop's STATE.md — the input to the 50% kill switch.
+Fixes go back through the loop and a fresh `/loop-review`. The maker never self-approves. Each verdict updates the accept/reject tally in the loop's STATE.md, the input to the 50% kill switch.
 
 ## Anatomy of a scaffolded loop
 
@@ -121,7 +121,7 @@ Every loop is one self-contained directory with three files:
 - **`STATE.md`** is the working memory. The agent forgets; the file does not. Last run, run/accept/reject tally, in progress, completed, escalated to humans, dated lessons learned, and the stop condition that ends the loop.
 - **`VISION.md`** is the standing spec reread at the start of every run: goal, scope, exact gate command, hard stops, human-approval boundaries. Context summarization loses constraints over long sessions; this file is the antidote.
 
-When the goal is met or no in-scope work remains, a run records the reason under "Stop conditions met" and ends with the line `LOOP DONE: <reason>` — the signal a `/loop` wrapper or scheduler watches for to stop re-invoking. The verifier confirms the claim; a self-declared done is never trusted.
+When the goal is met or no in-scope work remains, a run records the reason under "Stop conditions met" and ends with the line `LOOP DONE: <reason>`, the signal a `/loop` wrapper or scheduler watches for to stop re-invoking. The verifier confirms the claim; a self-declared done is never trusted.
 
 > [!IMPORTANT]
 > Rollout order matters: get one **manual** run reliable, then turn it into a **skill**, then wrap it in a **loop**, and only then **schedule** it. At every stage, `/loop-review` ends each batch. Skipping ahead is how loops fail in production.
@@ -130,8 +130,8 @@ When the goal is met or no in-scope work remains, a run records the reason under
 
 Two worked loops in [`examples/`](examples), exactly as `/loop-init` scaffolds them, shown after a few real runs:
 
-- [`ci-triage`](examples/ci-triage) — a **recurring** loop. Triage never "finishes", so its stop condition stays empty and the hard stop bounds each run.
-- [`lint-fix`](examples/lint-fix) — a **finite** loop. It migrates one directory per run toward a strict ESLint config, then ends itself with `LOOP DONE` once the goal holds.
+- [`ci-triage`](examples/ci-triage): a **recurring** loop. Triage never "finishes", so its stop condition stays empty and the hard stop bounds each run.
+- [`lint-fix`](examples/lint-fix): a **finite** loop. It migrates one directory per run toward a strict ESLint config, then ends itself with `LOOP DONE` once the goal holds.
 
 ## Methodology
 
@@ -145,7 +145,7 @@ Build a loop only if **both** conditions hold:
 The metric that matters is **cost per accepted change**, not tokens spent or tasks attempted. If acceptance drops below 50%, the loop is losing: kill it and redesign.
 
 > [!WARNING]
-> The signature failure mode is the *Ralph Wiggum loop*: the agent declares "done" early and the loop exits on a half-finished job, or keeps spending until something external kills it. The only fix is an objective gate (an exit code), backed by independent review — never the maker's own opinion.
+> The signature failure mode is the *Ralph Wiggum loop*: the agent declares "done" early and the loop exits on a half-finished job, or keeps spending until something external kills it. The only fix is an objective gate (an exit code), backed by independent review, never the maker's own opinion.
 
 > [!CAUTION]
 > Never let a loop touch architecture, auth, or payments. Keep humans in the approval path for merges, deploys, and dependency changes. Audit skill sources before installing, sanitize logs in unattended runs, and re-audit the loop's permissions every 30 days.

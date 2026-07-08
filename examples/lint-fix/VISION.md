@@ -4,7 +4,7 @@
 
 ## Goal
 
-`npx eslint src --max-warnings 0` exits 0 under the strict config — every directory in `src/` migrated, with no behavior changes.
+`npx eslint src --max-warnings 0` exits 0 under the strict config: every directory in `src/` migrated, with no behavior changes.
 
 ## Scope
 
@@ -29,7 +29,7 @@ The gate passes and the change is within scope. Nothing else counts as done.
 npm test
 ```
 
-Pass criteria: exit code 0. The loop must run this command itself and see it pass — a claim of success without a run is a failure.
+Pass criteria: exit code 0. The loop must run this command itself and see it pass; a claim of success without a run is a failure.
 
 ## Hard stops
 

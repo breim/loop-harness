@@ -6,9 +6,9 @@ Notable changes to loop-harness. Follows [Keep a Changelog](https://keepachangel
 
 ### Added
 
-- Success exit for scaffolded loops: a run that finds the goal met (or no in-scope work left) records the reason under "Stop conditions met" and ends with `LOOP DONE: <reason>` — the signal for `/loop` wrappers and schedulers to stop re-invoking.
+- Success exit for scaffolded loops: a run that finds the goal met (or no in-scope work left) records the reason under "Stop conditions met" and ends with `LOOP DONE: <reason>`, the signal for `/loop` wrappers and schedulers to stop re-invoking.
 - Metrics tally in scaffolded `STATE.md` (`Runs · Accepted · Rejected`): the loop counts runs, `/loop-review` records verdicts and warns when acceptance falls below the 50% kill switch.
-- `loop-verifier` check 6: a declared "done" is verified independently — a premature done is a rejection.
+- `loop-verifier` check 6: a declared "done" is verified independently; a premature done is a rejection.
 - Worked examples in `examples/`: `ci-triage` (recurring loop) and `lint-fix` (finite loop ending with `LOOP DONE`).
 - This changelog.
 
