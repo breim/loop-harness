@@ -5,7 +5,7 @@
 
 **Loop engineering harness for Claude Code. Stop prompting by hand: design the system that prompts.**
 
-[Features](#features) · [Installation](#installation) · [Usage](#usage) · [Loop anatomy](#anatomy-of-a-scaffolded-loop) · [Methodology](#methodology)
+[Features](#features) · [Installation](#installation) · [Usage](#usage) · [Loop anatomy](#anatomy-of-a-scaffolded-loop) · [Examples](#examples) · [Methodology](#methodology)
 
 </div>
 
@@ -125,6 +125,13 @@ When the goal is met or no in-scope work remains, a run records the reason under
 
 > [!IMPORTANT]
 > Rollout order matters: get one **manual** run reliable, then turn it into a **skill**, then wrap it in a **loop**, and only then **schedule** it. At every stage, `/loop-review` ends each batch. Skipping ahead is how loops fail in production.
+
+## Examples
+
+Two worked loops in [`examples/`](examples), exactly as `/loop-init` scaffolds them, shown after a few real runs:
+
+- [`ci-triage`](examples/ci-triage) — a **recurring** loop. Triage never "finishes", so its stop condition stays empty and the hard stop bounds each run.
+- [`lint-fix`](examples/lint-fix) — a **finite** loop. It migrates one directory per run toward a strict ESLint config, then ends itself with `LOOP DONE` once the goal holds.
 
 ## Methodology
 
